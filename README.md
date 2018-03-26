@@ -16,4 +16,6 @@ Notes
   Conan docs.)  The `package_id()` function then makes the package appear as if
   it was build with Microsoft Visual Studio.
 
-Also see [conan-mpfr](https://github.com/kheaactua/conan-mpfr).
+See also:
+- [conan-mpfr](https://github.com/kheaactua/conan-mpfr).
+- [conan-build-helpers](https://github.com/kheaactua/conan-build-helpers).
