@@ -15,3 +15,5 @@ Notes
   Subsystem](http://docs.conan.io/en/latest/systems_cross_building/windows_subsystems.html?highlight=msys2_mingw)
   Conan docs.)  The `package_id()` function then makes the package appear as if
   it was build with Microsoft Visual Studio.
+
+Also see [conan-mpfr](https://github.com/kheaactua/conan-mpfr).
