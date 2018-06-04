@@ -71,11 +71,15 @@ class GmpConan(ConanFile):
             args.append('--%s-shared'%('enable' if self.options.shared else 'disable'))
             args.append('--%s-static'%('enable' if self.options.static else 'disable'))
 
-            if self.settings.os == "Linux" or self.settings.os == "Macos":
+            if self.settings.os == 'Linux' or self.settings.os == 'Macos':
                 autotools.fpic = True
                 if self.settings.arch == 'x86':
                     env_vars['ABI'] = '32'
                     autotools.cxx_flags.append('-m32')
+
+            if self.settings.get_safe('arch') and self.settings.get_safe('arch').startswith('arm') and not tools.cross_building(self.settings):
+                # There's an issue with the assemle gmp attempts to use when building on ARM
+                args.append('--enable-assembly=no')
 
             # Debug
             self.output.info('Configure arguments: %s'%' '.join(args))
