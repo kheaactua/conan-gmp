@@ -15,6 +15,7 @@ class GmpConan(ConanFile):
     url         = 'https://github.com/kheaactua/conan-gmp'
     license     = 'MIT'
     settings    = 'os', 'compiler', 'arch', 'build_type'
+    requires    = 'helpers/[>=0.3]@ntc/stable'
     options = {
         'shared':            [True, False],
         'static':            [True, False],
@@ -38,10 +39,13 @@ class GmpConan(ConanFile):
 
     def source(self):
         zip_name = 'gmp-{version}.tar.bz2'.format(version=self.version)
-        tools.download('http://gnu.uberglobalmirror.com/gmp/{zip_name}'.format(zip_name=zip_name), zip_name)
-        # Alternative
-        # tools.download(f'http://gmplib.org/download/gmp/{zip_name}', zip_name)
-        tools.check_md5(zip_name, self.md5_hash)
+
+        from source_cache import copyFromCache
+        if not copyFromCache(zip_name):
+            tools.download('http://gnu.uberglobalmirror.com/gmp/{zip_name}'.format(zip_name=zip_name), zip_name)
+            # Alternative
+            # tools.download(f'http://gmplib.org/download/gmp/{zip_name}', zip_name)
+            tools.check_md5(zip_name, self.md5_hash)
         tools.unzip(zip_name)
         shutil.move('gmp-{version}'.format(version=self.version), 'gmp')
         os.unlink(zip_name)
