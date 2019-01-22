@@ -99,14 +99,6 @@ class GmpConan(ConanFile):
             autotools.make()
             autotools.make(args=['install'])
 
-    def package_info(self):
-        # We get lib<lib>.a: mpn, mpz, mpq, mpf, printf, scanf, random,
-        #  cxx, gmp, gmpxx
-        # Not sure if these should all be added?  I think CGAL only wants
-        # the first one
-
-        self.cpp_info.libs = ['gmp']
-
     def package_id(self):
         # On windows, we cross compile this with mingw.. But because it's
         # compatible with MSVC, set it's hash to reflect that.
